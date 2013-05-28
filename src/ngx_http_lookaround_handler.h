@@ -10,7 +10,7 @@
 #include "ngx_http_lookaround_module.h"
 
 
-NEXTERN ngx_int_t ngx_http_lookaround_handler(ngx_http_request_t *r);
+NLA_EXTERN ngx_int_t ngx_http_lookaround_handler(ngx_http_request_t *r);
 
 
 

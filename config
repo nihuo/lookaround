@@ -1,7 +1,6 @@
 ngx_addon_name=ngx_http_lookaround_module
 HTTP_MODULES="$HTTP_MODULES ngx_http_lookaround_module"
-NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/src/ngx_http_lookaround_module.c $ngx_addon_dir/src/ngx_http_lookaround_handler.c $ngx_addon_dir/src/ngx_http_lookaround_util.c"
-NGX_ADDON_DEPS="$NGX_ADDON_DEPS $ngx_addon_dir/src/ngx_http_lookaround_module.h $ngx_addon_dir/src/ngx_http_lookaround_global.h $ngx_addon_dir/src/contenttype.h $ngx_addon_dir/src/ngx_http_lookaround_handler.h $ngx_addon_dir/src/ngx_http_lookaround_util.h"
+NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/src/ngx_http_lookaround_map.c $ngx_addon_dir/src/ngx_http_lookaround_util.c $ngx_addon_dir/src/ngx_http_lookaround_handler.c $ngx_addon_dir/src/ngx_http_lookaround_strmap.c $ngx_addon_dir/src/ngx_http_lookaround_module.c"
+NGX_ADDON_DEPS="$NGX_ADDON_DEPS $ngx_addon_dir/src/ngx_http_lookaround_module.h $ngx_addon_dir/src/ngx_http_lookaround_handler.h $ngx_addon_dir/src/ngx_http_lookaround_contenttype.h $ngx_addon_dir/src/ngx_http_lookaround_strmap.h $ngx_addon_dir/src/ngx_http_lookaround_global.h $ngx_addon_dir/src/ngx_http_lookaround_map.h $ngx_addon_dir/src/ngx_http_lookaround_util.h"
 CORE_LIBS="$CORE_LIBS -lmm"
 CFLAGS="$CFLAGS"
-
