@@ -28,6 +28,8 @@
 #define NLA_PN_STATUS           "status"
 #define NLA_PN_TYPE             "type"
 
+#define NLA_OK                  "OK"
+
 
 static ngx_int_t ngx_http_lookaround_setitem(ngx_http_request_t *r);
 static ngx_int_t ngx_http_lookaround_getitem(ngx_http_request_t *r);
@@ -222,7 +224,7 @@ ngx_int_t ngx_http_lookaround_setitem(ngx_http_request_t *r)
 
     ngx_http_lookaround_setdataloc( g_pNLACoreData , achIDBuf , &loc , iStatus , iType , pConf ) ; 
 
-    return NGX_DONE ;
+    return ngx_http_lookaround_render_output( r , NLA_OK , CT_TXT ) ;
 }
 
 ngx_int_t ngx_http_lookaround_getitem(ngx_http_request_t *r)
