@@ -104,10 +104,6 @@ ngx_http_lookaround_create_loc_conf(ngx_conf_t *cf)
 
     pConf->nMapMaxLevel = 0 ;
 
-    g_psNLAEmptyStr  = fn_pns_get_ngxStr( cf->pool, ( const u_char* )"" ) ;
-    g_psNLAZeroStr    = fn_pns_get_ngxStr( cf->pool, ( const u_char* )"0" ) ;
-    g_psNLAOneStr    = fn_pns_get_ngxStr( cf->pool, ( const u_char* )"1" ) ;
-
 
     return pConf ; 
 }
@@ -135,7 +131,7 @@ static char *ngx_http_lookaround_setmaxmaplevel(ngx_conf_t *cf, ngx_command_t *c
     ngx_str_t                       *value ;
 
     value = cf->args->elts; 
-    p_la_conf->nMapMaxLevel = ngx_atoi( value->data , value->len ) ;
+    p_la_conf->nMapMaxLevel = ngx_atoi( value[ 1 ].data , value[ 1 ].len ) ;
 
     return NGX_CONF_OK ;    
 }
@@ -148,7 +144,7 @@ static char *ngx_http_lookaround_setmembufsize(ngx_conf_t *cf, ngx_command_t *cm
     ngx_str_t                       *value ;
 
     value = cf->args->elts; 
-    p_la_conf->nMaxMemBufSize = ngx_atoi( value->data , value->len ) ;
+    p_la_conf->nMaxMemBufSize = ngx_atoi( value[ 1 ].data , value[ 1 ].len ) ;
     
     return NGX_CONF_OK ;    
 }
@@ -162,7 +158,7 @@ static char *ngx_http_lookaround_sethashsize(ngx_conf_t *cf, ngx_command_t *cmd,
     ngx_str_t                       *value ;
 
     value = cf->args->elts; 
-    p_la_conf->nHashSize = ngx_atoi( value->data , value->len ) ;
+    p_la_conf->nHashSize = ngx_atoi( value[ 1 ].data , value[ 1 ].len ) ;
 
     return NGX_CONF_OK ;    
 }
@@ -170,12 +166,13 @@ static char *ngx_http_lookaround_sethashsize(ngx_conf_t *cf, ngx_command_t *cmd,
 
 static ngx_int_t ngx_http_lookaround_init_module( ngx_cycle_t *cycle )
 {
-    return NGX_OK ;
-}
+    ngx_http_lookaround_loc_conf    *pConf ;
 
 
-static ngx_int_t ngx_http_lookaround_init_master( ngx_log_t *log )
-{
+    g_psNLAEmptyStr = fn_pns_get_ngxStr( cycle->pool, ( const u_char* )"" ) ;
+    g_psNLAZeroStr  = fn_pns_get_ngxStr( cycle->pool, ( const u_char* )"0" ) ;
+    g_psNLAOneStr   = fn_pns_get_ngxStr( cycle->pool, ( const u_char* )"1" ) ;
+
     int ipid = getpid() ;
 
     g_pNLAMM = fn_p_create_mm( MM_BUF_SIZE , MM_BUF_ID , ipid ) ;
@@ -183,11 +180,24 @@ static ngx_int_t ngx_http_lookaround_init_master( ngx_log_t *log )
     g_pNLAServerStatus  = NLA_MM_CALLOC (g_pNLAMM, sizeof (la_server_status)) ;
     g_pNLACoreData      = NLA_MM_CALLOC (g_pNLAMM, sizeof (nla_core_data)) ;
 
-    fn_v_InitCoreData( g_pNLACoreData ) ;
+    pConf = ( ngx_http_lookaround_loc_conf* )ngx_get_conf(cycle->conf_ctx, ngx_http_lookaround_module);
+    if( pConf == NULL )
+    {
+        NLA_LOG_ERR_POS( cycle->log , "ngx_get_conf return NULL" ) ;
+        fn_v_InitCoreData( g_pNLACoreData , 19997 ) ;
+    }
+    else
+        fn_v_InitCoreData( g_pNLACoreData , pConf->nHashSize ) ;
 
     gettimeofday(&(g_pNLAServerStatus->tServerStartTime),NULL) ;
     g_pNLAServerStatus->ullcTotalReq   = 0 ;
 
+    return NGX_OK ;
+}
+
+
+static ngx_int_t ngx_http_lookaround_init_master( ngx_log_t *log )
+{
 
     return NGX_OK ;
 }

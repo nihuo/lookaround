@@ -18,10 +18,12 @@
 typedef int NLADeg ; //32 bit decimal fixed point representation, dividing by 1,000,000 as degree
 typedef int BOOL ;
 
-#define NLA_DEG_FIXPOINT        6
-#define NLA_DEG_FIXPOINT_BASE   1000000
-#define NLA_DEG_MAX_BUF_LEN     12
+#define NLA_DEG_FIXPOINT            6
+#define NLA_DEG_FIXPOINT_BASE       1000000
+#define NLA_DEG_FIXPOINT_BASE_FLOAT 1000000.0
+#define NLA_DEG_MAX_BUF_LEN         12
 
+#define NLA_PI                      3.1415926535897932384626433832795
 
 #ifndef TRUE
     #define TRUE    1
@@ -33,7 +35,6 @@ typedef int BOOL ;
 
 
 
-#define NLA_PI          3.14159265
 #define NLA_MAX_PATH    256
 
 #define MM_BUF_SIZE     ( 16 * 1024 * 1024 )

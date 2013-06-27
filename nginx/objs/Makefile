@@ -328,7 +328,7 @@ objs/nginx:	objs/src/core/nginx.o \
 	objs/addon/src/ngx_http_lookaround_strmap.o \
 	objs/addon/src/ngx_http_lookaround_module.o \
 	objs/ngx_modules.o \
-	-lpthread -lcrypt -lmm -lpcre -lcrypto -lcrypto -lz
+	-lpthread -lcrypt -lmm -lm -lpcre -lcrypto -lcrypto -lz
 	
 
 

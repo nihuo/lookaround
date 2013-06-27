@@ -39,5 +39,5 @@ with open( sConfigFile, "w") as text_file:
 
     text_file.write( sSrcFiles + "\"\n" ) 
     text_file.write( sDepFiles + "\"\n" ) 
-    text_file.write( "CORE_LIBS=\"$CORE_LIBS -lmm\"\nCFLAGS=\"$CFLAGS\"\n" )
+    text_file.write( "CORE_LIBS=\"$CORE_LIBS -lmm -lm\"\nCFLAGS=\"$CFLAGS\"\n" )
 

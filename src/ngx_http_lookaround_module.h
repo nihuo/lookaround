@@ -19,9 +19,9 @@ typedef struct server_status
 la_server_status;
 
 typedef struct {
-    unsigned int nMapMaxLevel ;
-    unsigned int nMaxMemBufSize ;
-    unsigned int nHashSize ;
+    int nMapMaxLevel ;
+    int nMaxMemBufSize ;
+    int nHashSize ;
     
 } ngx_http_lookaround_loc_conf;
 
